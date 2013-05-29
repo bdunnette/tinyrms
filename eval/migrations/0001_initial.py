@@ -8,6 +8,13 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'CaseCategory'
+        db.create_table('eval_casecategory', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=100)),
+        ))
+        db.send_create_signal('eval', ['CaseCategory'])
+
         # Adding model 'CaseEvaluation'
         db.create_table('eval_caseevaluation', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -15,12 +22,16 @@ class Migration(SchemaMigration):
             ('difficulty', self.gf('django.db.models.fields.IntegerField')()),
             ('diagnostic_accuracy', self.gf('django.db.models.fields.IntegerField')()),
             ('completeness', self.gf('django.db.models.fields.IntegerField')()),
-            ('case_category', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
+            ('case_category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['eval.CaseCategory'], null=True, blank=True)),
+            ('evaluation_date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
         db.send_create_signal('eval', ['CaseEvaluation'])
 
 
     def backwards(self, orm):
+        # Deleting model 'CaseCategory'
+        db.delete_table('eval_casecategory')
+
         # Deleting model 'CaseEvaluation'
         db.delete_table('eval_caseevaluation')
 
@@ -62,12 +73,18 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
+        'eval.casecategory': {
+            'Meta': {'object_name': 'CaseCategory'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+        },
         'eval.caseevaluation': {
             'Meta': {'object_name': 'CaseEvaluation'},
-            'case_category': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
+            'case_category': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['eval.CaseCategory']", 'null': 'True', 'blank': 'True'}),
             'completeness': ('django.db.models.fields.IntegerField', [], {}),
             'diagnostic_accuracy': ('django.db.models.fields.IntegerField', [], {}),
             'difficulty': ('django.db.models.fields.IntegerField', [], {}),
+            'evaluation_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'resident': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
         }

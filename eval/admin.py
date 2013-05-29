@@ -1,4 +1,5 @@
 from django.contrib import admin
-from models import CaseEvaluation
+from models import CaseCategory, CaseEvaluation
 
 admin.site.register(CaseEvaluation)
+admin.site.register(CaseCategory)

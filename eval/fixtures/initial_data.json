@@ -1,0 +1,23 @@
+[
+    {
+        "pk": 1, 
+        "model": "eval.casecategory", 
+        "fields": {
+            "title": "Breast"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "eval.casecategory", 
+        "fields": {
+            "title": "Lung"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "eval.casecategory", 
+        "fields": {
+            "title": "Neuro"
+        }
+    } 
+]
