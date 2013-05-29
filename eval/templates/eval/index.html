@@ -1,0 +1,11 @@
+{% extends "eval/base.html" %}
+
+{% block content %}
+	
+	<ul>
+	{% for eval in latest_eval_list %}
+		<li><a href="/eval/{{ eval.id }}/">{{ eval.evaluation_date }} {{ eval.resident.first_name }} {{ eval.resident.last_name }}</a></li>
+	{% endfor %}
+	</ul>
+
+{% endblock %}	
